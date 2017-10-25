@@ -26,6 +26,7 @@ public class KingdomTest {
 		Assert.assertEquals("The Vale", kingdom.getName());
 	}
 
+	//TODO write this test
 	@Test
 	public void setCastleGetCastleTest() {
 	}

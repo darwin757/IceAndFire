@@ -48,6 +48,9 @@ public class KingdomControllerTest {
 
 	@MockBean
 	private KingdomService kingdomServiceMock;
+	
+	@Autowired
+	KingdomRepository kingdomRepository;
 
 	@Before
 	public void setup() {
@@ -91,6 +94,7 @@ public class KingdomControllerTest {
 		mockMvc.perform(post("/Westeros").contentType(MediaType.APPLICATION_JSON_UTF8).content("{\"name\":\"Dorne\"}")
 				.accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isCreated()).andReturn();
 
+		//This part of the test is not working
 		mockMvc.perform(get("/Westeros/Dorne").contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
 				.andExpect(jsonPath("$.name").value("Dorne"));
 
@@ -105,7 +109,8 @@ public class KingdomControllerTest {
 
 		mockMvc.perform(put("/Westeros/Dorne").contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content("{\"name\":\"theReach\"}").accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk());
-
+		
+		//This Part of the test is not working
 		mockMvc.perform(get("/Westeros/Dorne").contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
 				.andExpect(jsonPath("$.name").value("the Reach"));
 

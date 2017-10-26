@@ -4,7 +4,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.example.Westeros.WesterosApplication;
 import com.example.Westeros.Kingdoms.Kingdom;
 import com.example.Westeros.Kingdoms.KingdomService;
 
@@ -17,7 +19,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes={ WesterosApplication.class })
 public class KingdomServiceTest {
 
 	@Autowired

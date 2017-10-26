@@ -12,10 +12,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import com.example.Westeros.WesterosApplication;
 
 import static org.mockito.Mockito.when;
 import static org.junit.Assert.*;
@@ -38,7 +41,7 @@ import org.junit.Assert;
 
 //TODO Major refactor required to clean up this class and consider the testing strategy 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes={ WesterosApplication.class })
 public class KingdomControllerTest {
 
 	@Autowired
@@ -78,7 +81,7 @@ public class KingdomControllerTest {
 		kingdomServiceMock.addKingdom(theNorth);
 
 		when(kingdomServiceMock.getKingdom("TheNorth")).thenReturn(theNorth);
-
+		
 		mockMvc.perform(get("/Westeros/TheNorth")).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(jsonPath("$.name").value("TheNorth"));

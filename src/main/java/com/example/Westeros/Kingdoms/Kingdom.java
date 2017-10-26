@@ -1,18 +1,18 @@
 package com.example.Westeros.Kingdoms;
 
-import org.neo4j.ogm.annotation.GraphId;
-import org.neo4j.ogm.annotation.NodeEntity;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import com.example.Westeros.Castles.Castle;
 
 
-@NodeEntity
+@Entity
 public class Kingdom {
 
 	// TODO a Kingdom should have a king or a king should have a kingdom
 
-	@GraphId private Long id;
-	
+	@Id
 	private String name;
 
 	// TODO This has to be a list of Castles

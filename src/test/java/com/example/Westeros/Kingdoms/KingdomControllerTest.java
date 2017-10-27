@@ -1,26 +1,18 @@
 package com.example.Westeros.Kingdoms;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.mockito.Mockito.when;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.any;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -28,14 +20,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Assert;
 
 //TODO Major refactor required to clean up this class and consider the testing strategy 
 @RunWith(SpringRunner.class)
@@ -49,7 +37,6 @@ public class KingdomControllerTest {
 
 	@MockBean
 	private KingdomService kingdomServiceMock;
-	
 
 	@Before
 	public void setup() {
@@ -69,7 +56,6 @@ public class KingdomControllerTest {
 				.andExpect(jsonPath("$[1].name").value("TheRiverlands"));
 	}
 
-	
 	@Test
 	public void getKingdomTest() throws Exception {
 
@@ -87,7 +73,7 @@ public class KingdomControllerTest {
 	public void addKingdomTest() throws Exception {
 
 		mockMvc.perform(post("/Westeros").contentType(MediaType.APPLICATION_JSON_UTF8).content("{\"name\":\"Dorne\"}")
-				.accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isCreated()).andReturn();
+				.accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isCreated());
 
 	}
 
@@ -99,18 +85,17 @@ public class KingdomControllerTest {
 
 		mockMvc.perform(put("/Westeros/Dorne").contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content("{\"name\":\"theReach\"}").accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk());
-		
+
 	}
 
 	@Test
 	public void deleteKingdomTest() throws Exception {
-		
+
 		mockMvc.perform(post("/Westeros").contentType(MediaType.APPLICATION_JSON_UTF8).content("{\"name\":\"theVale\"}")
 				.accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isCreated());
 
 		mockMvc.perform(delete("Westeros/theVale").contentType(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(status().isNotFound());
-
 	}
 
 	// FIXME refer to the KingdomController class, the method should be moved to

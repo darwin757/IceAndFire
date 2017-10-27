@@ -54,7 +54,7 @@ public class KingdomServiceTest {
 
 
 	@Test
-	public void addandGetKingdomTest() {
+	public void addAndGetKingdomTest() {
 		 kingdomService.addKingdom(theNorth);
 		 Assert.assertEquals("The North", kingdomService.getKingdom("The North").getName());
 	}

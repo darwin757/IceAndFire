@@ -44,7 +44,7 @@ public class KingdomService {
 		return getKingdom(kingdomName).getCastles();
 	}
 	
-	//FIXME this is wrong
+	//FIXME I'M WRONG
 	public void addCastleToKingdom(String kingdomName,String castleName) {
 		Castle castle = new Castle(castleName);
 		castleRepository.save(castle);

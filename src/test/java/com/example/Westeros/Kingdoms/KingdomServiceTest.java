@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.example.Westeros.Castles.Castle;
 import com.example.Westeros.Kingdoms.Kingdom;
 import com.example.Westeros.Kingdoms.KingdomService;
 
@@ -14,6 +15,7 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 @RunWith(SpringRunner.class)
@@ -77,6 +79,20 @@ public class KingdomServiceTest {
 		
 	}
 
+	@Ignore
+	@Test 
+	public void addCastleToKingdomTest() {
+		kingdomService.addKingdom(theNorth);
+		kingdomService.addCastleToKingdom("The North", "Winterfell");
+		kingdomService.addCastleToKingdom("The North", "The Dreadfort");
+		kingdomService.addCastleToKingdom("The North", "White Harbor");
+		
+		Assert.assertEquals("Winterfell", kingdomService.getKingdomsCastles("The North").get(0).getName());
+		Assert.assertEquals("The Dreadfort", kingdomService.getKingdomsCastles("The North").get(1).getName());
+		Assert.assertEquals("White Harbor", kingdomService.getKingdomsCastles("The North").get(2).getName());
+		
+	}
+	
 	private List<Kingdom> setUpTestArrayListForSevenKingdoms() {
 		List<Kingdom> kingdoms = new ArrayList<Kingdom>();
 		Kingdom[] kingdomsArray = setAndGetKingdomsArray();

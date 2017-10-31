@@ -44,13 +44,13 @@ public class KingdomService {
 		return getKingdom(kingdomName).getCastles();
 	}
 	
-	//FIXME I'M WRONG
 	public void addCastleToKingdom(String kingdomName,String castleName) {
-		Castle castle = new Castle(castleName);
-		castleRepository.save(castle);
-		getKingdom(kingdomName).addCastle(castle);		
+		   Kingdom kingdom = getKingdom(kingdomName);
+		    Castle castle = new Castle(castleName);
+		    kingdom.addCastle(castle);
+		    kingdomRepository.save(kingdom);
+	}   	
 		
-	}	
 
 	public void deleteAll() {
 		kingdomRepository.deleteAll();

@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.Westeros.Castles.Castle;
+import com.example.Westeros.Castles.CastleService;
 import com.example.Westeros.Kingdoms.Kingdom;
 import com.example.Westeros.Kingdoms.KingdomService;
 
@@ -24,6 +25,9 @@ public class KingdomServiceTest {
 
 	@Autowired
 	private KingdomService kingdomService;
+	
+	@Autowired
+	private CastleService castleService;
 
 	private Kingdom theNorth;
 	private Kingdom theRiverlands; 
@@ -79,7 +83,6 @@ public class KingdomServiceTest {
 		
 	}
 
-	@Ignore
 	@Test 
 	public void addCastleToKingdomTest() {
 		kingdomService.addKingdom(theNorth);
@@ -120,6 +123,7 @@ public class KingdomServiceTest {
 	@After
 	public void cleanUp(){
 		kingdomService.deleteAll();
+		castleService.deletAll();
 	}
 }
 

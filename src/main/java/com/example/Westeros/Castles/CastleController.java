@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.Westeros.Kingdoms.KingdomService;
+
 //TODO ALL LINKS MUST BE CHANGE WHEN I SET UP RELATIONSHIP BETWEEN CASTLE AND KINGDOM
 @RestController
 public class CastleController {
@@ -18,9 +20,18 @@ public class CastleController {
 	@Autowired
 	private CastleService castleService;
 	
+	@Autowired
+	private KingdomService kingdomService;
+	
 	@RequestMapping("/Westeros/Castles")
 	public List<Castle> getAllCastles(){
 		return castleService.getAllCastles();
+	}
+	
+	//TODO write test for this method
+	@RequestMapping("/Westeros/{kingdomsName}/Castles")
+	public List<Castle> getAllCastlesOfAKingdom(@PathVariable String kingdomsName){
+		return kingdomService.getKingdomsCastles(kingdomsName);
 	}
 	
 	@RequestMapping("/Westeros/Castles/{name}")
@@ -28,6 +39,7 @@ public class CastleController {
 		return castleService.getCastle(name);
 	}
 	
+	//TODO Reconsider this
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(method = RequestMethod.POST, value="/Westeros/Castles")
 	public void addCastle(@RequestBody Castle castle) {

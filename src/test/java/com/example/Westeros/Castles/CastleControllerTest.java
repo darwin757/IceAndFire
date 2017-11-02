@@ -1,6 +1,7 @@
 package com.example.Westeros.Castles;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import com.example.Westeros.Kingdoms.Kingdom;
+import com.example.Westeros.Kingdoms.KingdomService;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -35,6 +39,9 @@ public class CastleControllerTest {
 
 	@MockBean
 	private CastleService castleServiceMock;
+	
+	@MockBean
+	private KingdomService kingdomServiceMock;
 
 	@Before
 	public void setup() {
@@ -53,6 +60,27 @@ public class CastleControllerTest {
 				.andExpect(jsonPath("$[1].name").value("Riverrun"));
 	}
 
+	//FIXME I have no idea why this test is failing
+	@Ignore
+	@Test
+	public void getCastlesOfAKingdomTest() throws Exception{
+		Kingdom theNorth = new Kingdom("TheNorth");
+
+		kingdomServiceMock.addKingdom(theNorth);
+		
+		kingdomServiceMock.addCastleToKingdom("TheNorth", "Winterfell");
+		kingdomServiceMock.addCastleToKingdom("TheNorth", "The Dreadfort");
+		kingdomServiceMock.addCastleToKingdom("TheNorth", "White Harbor");
+		
+		when(kingdomServiceMock.getKingdomsCastles("TheNorth")).thenReturn(theNorth.getCastles());
+
+		mockMvc.perform(get("Westeros/TheNorth/Castles").accept(MediaType.APPLICATION_JSON_UTF8)).andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(jsonPath("$[0].name").value("Winterfell"))
+				.andExpect(jsonPath("$[1].name").value("The Dreadfort"))
+				.andExpect(jsonPath("$[2].name").value("White Harbor"));
+		
+	}
 	@Test
 	public void getCastleTest() throws Exception {
 

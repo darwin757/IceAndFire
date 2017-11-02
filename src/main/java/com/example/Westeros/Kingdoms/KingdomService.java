@@ -12,13 +12,8 @@ import com.example.Westeros.Castles.CastleRepository;
 @Service
 public class KingdomService {
 
-	
 	@Autowired
 	private KingdomRepository kingdomRepository;
-	
-	@Autowired 
-	private CastleRepository castleRepository;
-	
 	
 	public List<Kingdom> getAllKingdoms() {
 		List<Kingdom> kingdoms = new ArrayList<Kingdom>();
@@ -50,9 +45,10 @@ public class KingdomService {
 		    kingdom.addCastle(castle);
 		    kingdomRepository.save(kingdom);
 	}   	
-		
-
+	
 	public void deleteAll() {
 		kingdomRepository.deleteAll();
 	}
+
+	
 }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Westeros.Kingdoms.KingdomService;
 
-//TODO ALL LINKS MUST BE CHANGE WHEN I SET UP RELATIONSHIP BETWEEN CASTLE AND KINGDOM
 @RestController
 public class CastleController {
 
@@ -28,7 +27,7 @@ public class CastleController {
 		return castleService.getAllCastles();
 	}
 	
-	//TODO write test for this method
+	//TODO fix test for this method
 	@RequestMapping("/Westeros/{kingdomsName}/Castles")
 	public List<Castle> getAllCastlesOfAKingdom(@PathVariable String kingdomsName){
 		return kingdomService.getKingdomsCastles(kingdomsName);
